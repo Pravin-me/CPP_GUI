@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\L I T E\\Desktop\\Github\\CPP_GUI\\openglproject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8CB6E799-B36D-474C-AB9F-A77D8389EB31}|openglproject.vcxproj|C:\\Users\\L I T E\\Desktop\\Github\\CPP_GUI\\openglproject\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8CB6E799-B36D-474C-AB9F-A77D8389EB31}|openglproject.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CB6E799-B36D-474C-AB9F-A77D8389EB31}|openglproject.vcxproj|C:\\Users\\L I T E\\Desktop\\Github\\CPP_GUI\\openglproject\\glad.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8CB6E799-B36D-474C-AB9F-A77D8389EB31}|openglproject.vcxproj|solutionrelative:glad.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 100,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "glad.c",
+              "DocumentMoniker": "C:\\Users\\L I T E\\Desktop\\Github\\CPP_GUI\\openglproject\\glad.c",
+              "RelativeDocumentMoniker": "glad.c",
+              "ToolTip": "C:\\Users\\L I T E\\Desktop\\Github\\CPP_GUI\\openglproject\\glad.c",
+              "RelativeToolTip": "glad.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-08-29T10:17:27.095Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\L I T E\\Desktop\\Github\\CPP_GUI\\openglproject\\main.cpp",
+              "RelativeDocumentMoniker": "main.cpp",
+              "ToolTip": "C:\\Users\\L I T E\\Desktop\\Github\\CPP_GUI\\openglproject\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AgIAAK8AAAAAAAAAAAAIwLYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-08-29T08:41:55.286Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

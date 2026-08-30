@@ -1,2 +1,2 @@
 ﻿  main.cpp
-  App.vcxproj -> C:\Users\L I T E\Desktop\Github\CPP_GUI\App\x64\Debug\App.exe
+C:\Users\L I T E\Desktop\Github\CPP_GUI\App\main.cpp(4,10): error C1083: Cannot open include file: 'basewin.h': No such file or directory
