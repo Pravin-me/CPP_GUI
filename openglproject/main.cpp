@@ -6,7 +6,7 @@
 class samay{
 private:
     float lastTime = (float)glfwGetTime();
-    float delta;
+    float delta=0.0f;
 public:
     float deltaTime() {
         delta = (float)glfwGetTime() - lastTime;
@@ -23,18 +23,19 @@ public:
     float posX = 0.0f;
     float centerY;
     float centerX;
-    float velocity_Y;
-    float velocity_X;
+    float velocity_Y=0.0f;
+    float velocity_X=0.0f;
+    float friction = 2.0f;
+    float vMax = 0.8f;
+    int mass = 10;
     
     std::vector<float> vertices;
     std::vector<unsigned int> indices;
-    shape(float radius, int segments, float centerX = 0.0f,float centerY = 0.0f, float vX = 0.0f, float vY = 0.0f) {
+    shape(float radius, int segments, float centerX = 0.0f,float centerY = 0.0f) {
         this->segments = segments;
         this->radius = radius;
         this->centerY = centerY;
         this->centerX = centerX;
-        velocity_Y = vY;
-        velocity_X = vX;
         vertices.push_back(0.0f); // x
         vertices.push_back(0.0f); // y
         vertices.push_back(0.0f); // z
@@ -80,21 +81,68 @@ public:
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
     }
-    void update(float deltaTime) {
-        posY += velocity_Y * deltaTime;
-        posX += velocity_X * deltaTime;
-        if ((posY <= radius - 1) && velocity_Y < 0.0f)
-            velocity_Y = (-1) * velocity_Y;
-        else if ((posY >= 1 - radius) && velocity_Y > 0.0f)
-            velocity_Y = (-1) * velocity_Y;
-        if ((posX <= radius - 1) && velocity_X < 0.0f)
-            velocity_X = (-1) * velocity_X;
-        else if ((posX >= 1 - radius) && velocity_X > 0.0f)
-            velocity_X = (-1) * velocity_X;
+    void update(float deltaTime, GLFWwindow* window) {
+        //posY += velocity_Y * deltaTime;
+        //posX += velocity_X * deltaTime;
+        //if ((posY <= radius - 1) && velocity_Y < 0.0f)
+        //    velocity_Y = (-1) * velocity_Y;
+        //else if ((posY >= 1 - radius) && velocity_Y > 0.0f)
+        //    velocity_Y = (-1) * velocity_Y;
+        //if ((posX <= radius - 1) && velocity_X < 0.0f)
+        //    velocity_X = (-1) * velocity_X;
+        //else if ((posX >= 1 - radius) && velocity_X > 0.0f)
+        //    velocity_X = (-1) * velocity_X;
+        float inputX=0, inputY=0;
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            inputY += 8;
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            inputY -= 8;
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            inputX -= 8;
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            inputX += 8;
+            addForce(inputX, inputY, deltaTime);
     }
+    int dirn(float x) {
+        return (x != 0) ? (int)(x / (sqrt(x * x))) : 0;
+    }
+    void addForce(float x,float y,float dt) {
+        float acclnX = (x-dirn(velocity_X)*friction) / mass;
+        float acclnY = (y-dirn(velocity_Y)*friction) / mass;
+        //x *= (1 - friction);
+        //y *= (1 - friction);
+        //float acclnX = x / mass;
+        //float acclnY = y / mass;
+        velocity_X += acclnX * dt;
+        velocity_Y += acclnY * dt;
 
+        if (velocity_X > vMax) velocity_X = vMax;
+        if (velocity_X < -vMax) velocity_X = -vMax;
+        if (velocity_Y > vMax) velocity_Y = vMax;
+        if (velocity_Y < -vMax) velocity_Y = -vMax;
 
-
+        posX += velocity_X * dt;
+        posY += velocity_Y * dt;
+        checkBorder();
+    }
+    void checkBorder() {
+        if (posX > 1 - radius) {
+            posX = 1 - (0.01f +1)*radius;
+            velocity_X = 0.0f;
+        }
+        if (posX < radius -1) {
+            posX = radius*(1 + 0.01f) - 1;
+            velocity_X = 0.0f;
+        }
+        if (posY > 1 - radius) {
+            posY = 1 - (0.01f + 1)*radius;
+            velocity_Y = 0.0f;
+        }
+        if (posY < radius - 1) {
+            posY = radius*(1 + 0.01f) - 1;
+            velocity_Y = 0.0f;
+        }
+    }
 };
 // --- Shaders (as plain strings for now — files come later) ---
 const char* vertexShaderSource = R"(
@@ -148,8 +196,7 @@ int main(void)
         return -1;
     }
 
-    objects.push_back(shape(0.3f, 5, 0.0f, 0.0f, 1.0f, 2.0f));
-    objects.push_back(shape(0.3f, 5, 0.0f, 0.0f, 0.5f, 1.0f));
+    objects.push_back(shape(0.07f, 50, 0.0f, 0.0f));
 
     // --- Compile vertex shader ---
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -180,7 +227,7 @@ int main(void)
 
         for (auto& s : objects)
         {
-            s.update(dt);
+            s.update(dt,window);
             s.draw(shaderProgram);
         }
         dt = t.deltaTime();
